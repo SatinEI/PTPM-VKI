@@ -120,7 +120,7 @@ def validate_registration(login, password, confirm_password):
 
 #login = input("Введите логин: ")
 #password = input("Введите пароль: ")
-#confirm_password = input("Подтвердите пароль: ")
+#confirm_password = input("Подтвердите пароль:")
 login = "+7-913-521-1523"
 password = "абвгдЕ123!"
 confirm_password = "абвгд123!"
