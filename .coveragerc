@@ -1,0 +1,11 @@
+[run]
+branch = True
+source = .
+omit =
+    src/lab_1.py
+    tests/test_lab1.py
+    tests/*
+
+[report]
+show_missing = True
+skip_covered = False
