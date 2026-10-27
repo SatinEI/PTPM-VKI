@@ -48,7 +48,7 @@ class IntegrationTests(unittest.TestCase):
         validator_spy.assert_called_once_with("cache123", PASSWORD, PASSWORD)
         self.assertEqual(self.sender.send.call_count, 2)
 
-    def test_invalid_registration_is_persisted_and_sent_as_failure(self):
+    def test_invalid_registration_sent_as_failure(self):
         self.user.get_registration_data.return_value = ("valid123", PASSWORD, "Абвг13!")
 
         result = self.controller.run()
@@ -58,7 +58,7 @@ class IntegrationTests(unittest.TestCase):
         self.assertEqual(self.database.get_record("valid123", PASSWORD, "Абвг13!"), result)
         self.sender.send.assert_called_once_with("Регистрация отклонена: " + result[1])
 
-    def test_warning_is_saved_separately_and_read_from_cache(self):
+    def test_warning_is_saved_and_read_from_cache(self):
         self.user.get_registration_data.return_value = ("UPPERCASE", PASSWORD, PASSWORD)
 
         first = self.controller.run()
@@ -191,7 +191,7 @@ class ApplicationTests(unittest.TestCase):
 
         fake_print.assert_any_call("Успех")
         fake_print.assert_any_call("Имитация отправки:", "Регистрация успешна")
-        with self.assertRaises(sqlite3.ProgrammingError):  # main() closes its DB connection
+        with self.assertRaises(sqlite3.ProgrammingError):
             db.get_record("entry123", PASSWORD, PASSWORD)
 
     def test_main_prints_failed_status_and_message(self):
